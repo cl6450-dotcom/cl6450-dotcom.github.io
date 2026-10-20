@@ -886,7 +886,8 @@ cite { font-style: italic; }
 }
 
 @media (max-width: 760px) {
-    .menu-btn { display: grid; }
+    /* The link list leaves the header on phones, so move the button past its empty slot to the right edge */
+    .menu-btn { display: grid; order: 2; }
 
     .nav-links {
         position: absolute;
