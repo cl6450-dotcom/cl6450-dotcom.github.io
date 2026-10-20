@@ -1,0 +1,12 @@
+{
+    "name": "Crystal Lin — Aspiring Physician Assistant",
+    "short_name": "Crystal Lin",
+    "start_url": "/",
+    "display": "browser",
+    "background_color": "#FFF9F6",
+    "theme_color": "#FFF9F6",
+    "icons": [
+        { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    ]
+}

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- A cat in a nurse's cap, standing in until a real photo is added -->
+  <rect width="400" height="400" fill="#FCE4EC"/>
+  <g stroke="#4A3640" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <!-- body -->
+    <path d="M110 400c0-60 40-96 90-96s90 36 90 96" fill="#FFFFFF"/>
+    <path d="M168 318c10 16 54 16 64 0" fill="none"/>
+    <!-- ears -->
+    <path d="M102 196 116 92l70 58z" fill="#FFFFFF"/>
+    <path d="M298 196 284 92l-70 58z" fill="#FFFFFF"/>
+  </g>
+  <!-- inner ears: same shape as the ears, tucked behind the head so only the tips show -->
+  <path d="M110 188 120 105l56 45z" fill="#F8C8D8"/>
+  <path d="M290 188 280 105l-56 45z" fill="#F8C8D8"/>
+  <!-- head -->
+  <ellipse cx="200" cy="222" rx="118" ry="100" fill="#FFFFFF" stroke="#4A3640" stroke-width="8"/>
+  <!-- nurse cap -->
+  <path d="M146 136 160 96h80l14 40c-36 10-72 10-108 0z" fill="#FFFFFF" stroke="#4A3640" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M193 104h14v10h10v14h-10v10h-14v-10h-10v-14h10z" fill="#23775A"/>
+  <!-- eyes -->
+  <ellipse cx="154" cy="226" rx="13" ry="17" fill="#4A3640"/>
+  <ellipse cx="246" cy="226" rx="13" ry="17" fill="#4A3640"/>
+  <circle cx="158" cy="219" r="4.5" fill="#FFFFFF"/>
+  <circle cx="250" cy="219" r="4.5" fill="#FFFFFF"/>
+  <!-- blush -->
+  <ellipse cx="124" cy="258" rx="20" ry="11" fill="#F3A6BF"/>
+  <ellipse cx="276" cy="258" rx="20" ry="11" fill="#F3A6BF"/>
+  <!-- nose and mouth -->
+  <path d="M191 248h18l-9 10z" fill="#E7799C"/>
+  <path d="M182 266c4 8 14 8 18 0 4 8 14 8 18 0" fill="none" stroke="#4A3640" stroke-width="5" stroke-linecap="round"/>
+  <!-- whiskers -->
+  <g stroke="#4A3640" stroke-width="4" stroke-linecap="round">
+    <path d="M70 240l44 8M72 266l42-4"/>
+    <path d="M330 240l-44 8M328 266l-42-4"/>
+  </g>
+  <!-- stethoscope -->
+  <g fill="none" stroke="#93D8B9" stroke-width="7" stroke-linecap="round">
+    <path d="M150 330c0 28 18 46 50 46s50-18 50-46"/>
+  </g>
+  <circle cx="200" cy="378" r="12" fill="#BFE9D6" stroke="#23775A" stroke-width="5"/>
+</svg>
