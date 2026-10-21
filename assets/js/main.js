@@ -2,6 +2,30 @@
     const root = document.documentElement;
     const motion = root.classList.contains('motion');
 
+    /* ---------- Name: split into letters so each can hop in (motion only) ---------- */
+    if (motion) {
+        const title = document.getElementById('hero-title');
+        const text = title.textContent.trim();
+        const holder = document.createElement('span');
+        holder.setAttribute('aria-hidden', 'true');
+        let i = 0;
+        text.split(' ').forEach((word, wi) => {
+            if (wi) holder.append(' ');
+            const w = document.createElement('span');
+            w.style.whiteSpace = 'nowrap';
+            [...word].forEach((c) => {
+                const ch = document.createElement('span');
+                ch.className = 'ch';
+                ch.style.setProperty('--i', i++);
+                ch.textContent = c;
+                w.append(ch);
+            });
+            holder.append(w);
+        });
+        title.setAttribute('aria-label', text);
+        title.replaceChildren(holder);
+    }
+
     /* ---------- Phone menu ---------- */
     const nav = document.getElementById('nav');
     const menuBtn = nav.querySelector('.menu-btn');
