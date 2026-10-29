@@ -19,19 +19,24 @@ It's plain HTML, CSS, and JavaScript with no framework and no build step, so Git
 | Feature | Why |
 | --- | --- |
 | **Pink and mint** | A soft, friendly look that still feels polished |
-| **Gentle motion** | Little animations that switch off if your device asks for reduced motion |
+| **Gentle motion** | Little animations, and sections that rise over one another on their waves as you scroll, all switching off if your device asks for reduced motion, or with the pause button |
+| **Night mode** | A cozy plum theme that follows your device or the moon button, spreading in like a heart, plus a more-contrast button |
+| **Little surprises** | A heartbeat line under the menu that beats at each section, hearts when you copy my email, and a cat if you tap my photo enough |
 | **Phone-friendly** | Built to look and scroll nicely on small screens |
 | **Accessible** | A skip link, keyboard-friendly menu, focus styles, and readable color contrast |
 | **Shares nicely** | Link previews, structured data for search, a sitemap, and a friendly 404 page |
+| **Fast and offline** | Fonts and images served from the site itself, sized for each screen, and a saved copy so it opens even offline |
 
 ## Files
 
 ```
 index.html              the page itself
 404.html                where you land if a link is wrong
+sw.js                   keeps a copy of the site for fast repeat visits and offline
 Crystal-Lin-Resume.pdf  my résumé
 assets/css/styles.css   all the styles
-assets/js/main.js       menu, scroll animations, and the copy-email button
+assets/js/main.js       menu, scroll animations, the nav and its heartbeat line, night mode, and the copy-email button
+assets/fonts/           Fredoka and Nunito, with their licenses
 assets/img/             my photo, the link-preview image
 assets/icons/           favicons and app icons
 ```

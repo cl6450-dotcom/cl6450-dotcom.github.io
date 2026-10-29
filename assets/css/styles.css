@@ -1,3 +1,25 @@
+/* ================= Fonts ================= */
+/* Fredoka for headings and Nunito for everything else, served from this site (their Latin sets, which cover
+   everything on the page). Each is one variable font, so every weight comes from the one file. Licenses:
+   assets/fonts/fredoka-OFL.txt and nunito-OFL.txt. */
+@font-face {
+    font-family: "Fredoka";
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url("../fonts/fredoka-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 200 1000;
+    font-display: swap;
+    src: url("../fonts/nunito-latin.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ================= Colors and type ================= */
 /* Strawberry-milk pinks and mint-scrub greens. Text colors all pass WCAG AA on every background used here. */
 :root {
@@ -30,7 +52,49 @@
     --radius-lg: 28px;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --nav-h: 68px;
+
+    --on-rose: #FFFFFF; /* text on the rose buttons */
+    --nav-bg: rgba(255, 249, 246, 0.96);
+    --rose-hover: #A2355A;
+    --say-hi-hover: var(--rose-dark);
+    --shade: #4A3640; /* what a section dims toward as the next one covers it */
+    --shade-max: 0.14;
+    color-scheme: light;
 }
+
+/* Night mode: a cozy deep plum with the same pinks and mints, lifted so every text color still passes WCAG AA. The
+   head script sets data-theme (and data-contrast) from the visitor's choice here, or else their device's setting. */
+:root[data-theme="dark"] {
+    --cream: #221921;
+    --white: #2E222B;
+    --pink-50: #2A1D26;
+    --pink-100: #45283A;
+    --pink-200: #5A3549;
+    --pink-300: #B4708F;
+    --pink-400: #E58AAA;
+    --rose: #F48FB1;
+    --rose-dark: #B85C7E;
+    --mint-50: #1C2622;
+    --mint-100: #213A31;
+    --mint-200: #2F5546;
+    --mint-300: #4E9C7C;
+    --mint-600: #7FD6B0;
+    --mint-700: #8FE0BD;
+    --ink: #F7E9EF;
+    --ink-2: #D6C1CB;
+    --line: #45323D;
+    --on-rose: #2A1520;
+    --nav-bg: rgba(34, 25, 33, 0.94);
+    --rose-hover: #F8A9C4;
+    --say-hi-hover: var(--rose-hover);
+    --shade: #000000;
+    --shade-max: 0.38;
+    color-scheme: dark;
+}
+
+/* More contrast: secondary text as strong as the main text, and firmer outlines */
+:root[data-contrast="more"] { --ink-2: var(--ink); --line: #D7A3B6; --pink-200: #E9A3BC; --mint-200: #8FCDB1; }
+:root[data-theme="dark"][data-contrast="more"] { --line: #8A5F74; --pink-200: #8A5370; --mint-200: #4C8A70; }
 
 /* ================= Base ================= */
 *,
@@ -41,6 +105,10 @@ html {
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--nav-h) + 12px);
     -webkit-text-size-adjust: 100%;
+    /* Nothing is meant to reach past the page's sides, so a fraction of a pixel of rounding (zoomed or scaled screens
+       make the page a fractional width) can't bring up a sideways scrollbar. On the root this goes to the window
+       itself, so the nav and the sections still stick. */
+    overflow-x: clip;
 }
 
 body {
@@ -50,6 +118,7 @@ body {
     font-family: var(--font-body);
     font-size: 1.0625rem;
     line-height: 1.65;
+    transition: background-color 0.3s;
 }
 
 h1, h2, h3 {
@@ -101,7 +170,7 @@ cite { font-style: italic; }
     padding: 0.6rem 1rem;
     border-radius: 999px;
     background: var(--rose);
-    color: var(--white);
+    color: var(--on-rose);
     font-weight: 700;
     text-decoration: none;
     transition: top 0.2s;
@@ -120,7 +189,7 @@ cite { font-style: italic; }
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(255, 249, 246, 0.96);
+    background: var(--nav-bg);
     border-bottom: 2px dashed var(--pink-200);
 }
 
@@ -167,11 +236,15 @@ cite { font-style: italic; }
 .nav-links .say-hi {
     margin-left: 0.35rem;
     background: var(--rose);
-    color: var(--white);
+    color: var(--on-rose);
     box-shadow: 0 3px 0 var(--rose-dark);
 }
 
-.nav-links .say-hi:hover { background: var(--rose-dark); color: var(--white); }
+.nav-links .say-hi:hover { background: var(--say-hi-hover); color: var(--on-rose); }
+
+/* The link for the section you're reading stays lit (the script marks it .current) */
+.nav-links a.current { background: var(--pink-100); color: var(--rose); }
+.nav-links .say-hi.current { background: var(--rose); color: var(--on-rose); box-shadow: 0 3px 0 var(--rose-dark), 0 0 0 3px var(--pink-200); }
 
 .menu-btn {
     display: none;
@@ -189,6 +262,62 @@ cite { font-style: italic; }
 .menu-btn .i-shut,
 .nav.open .menu-btn .i-open { display: none; }
 .nav.open .menu-btn .i-shut { display: block; }
+
+/* The three buttons beside the links: night mode, more contrast, and pausing the animations */
+.toggles { display: flex; align-items: center; gap: 0.35rem; margin-left: 0.5rem; }
+
+.toggle {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 2px solid var(--pink-200);
+    border-radius: 14px;
+    background: var(--white);
+    color: var(--rose);
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s var(--ease);
+}
+
+.toggle:hover { background: var(--pink-50); transform: translateY(-1px); }
+.toggle[aria-pressed="true"] { background: var(--pink-100); border-color: var(--pink-300); }
+.toggle .i-sun,
+:root[data-theme="dark"] .toggle .i-moon,
+.toggle .i-play,
+:root:not(.motion) .toggle .i-pause { display: none; }
+:root[data-theme="dark"] .toggle .i-sun,
+:root:not(.motion) .toggle .i-play { display: block; }
+
+/* On phones her name stays on one line beside the buttons and the menu (see the responsive rules) */
+.brand { white-space: nowrap; }
+
+/* The switch between day and night spreads out from the button in the shape of a heart (the script grows it) */
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+::view-transition-new(root) {
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 90C20 69 3 51 3 30 3 14 15 3 30 3c9 0 16 5 20 13 4-8 11-13 20-13 15 0 27 11 27 27 0 21-17 39-47 60z'/%3E%3C/svg%3E") no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 90C20 69 3 51 3 30 3 14 15 3 30 3c9 0 16 5 20 13 4-8 11-13 20-13 15 0 27 11 27 27 0 21-17 39-47 60z'/%3E%3C/svg%3E") no-repeat;
+}
+
+/* ================= The heartbeat line ================= */
+/* The nav's dashed edge becomes a heart monitor's trace (the script draws it): faint stitches all the way along, with
+   a beat where each section begins, and a solid line that draws itself as you scroll, its bright dot marking where
+   you are. Each beat it passes on the way down makes the heart in her name beat too. */
+.nav.has-ekg { border-bottom-color: transparent; }
+.ekg { position: absolute; left: 0; bottom: -12px; width: 100%; overflow: visible; pointer-events: none; }
+.ekg-base { fill: none; stroke: var(--pink-200); stroke-width: 2; stroke-dasharray: 5 5; stroke-linejoin: round; }
+.ekg-line { fill: none; stroke: var(--rose); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.ekg-dot { fill: var(--rose); stroke: var(--cream); stroke-width: 1.5; }
+.ekg-glow { display: none; }
+.motion .ekg-glow { display: block; fill: var(--pink-300); opacity: 0.45; transform-box: fill-box; transform-origin: center; animation: glow 1.6s ease-out infinite; }
+
+@keyframes glow {
+    from { transform: scale(0.6); opacity: 0.55; }
+    to { transform: scale(2.4); opacity: 0; }
+}
 
 /* ================= Hello ================= */
 .hero {
@@ -309,8 +438,8 @@ cite { font-style: italic; }
     transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s;
 }
 
-.btn--rose { background: var(--rose); color: var(--white); box-shadow: 0 5px 0 var(--rose-dark); }
-.btn--rose:hover { background: #A2355A; transform: translateY(-2px); box-shadow: 0 7px 0 var(--rose-dark); }
+.btn--rose { background: var(--rose); color: var(--on-rose); box-shadow: 0 5px 0 var(--rose-dark); }
+.btn--rose:hover { background: var(--rose-hover); transform: translateY(-2px); box-shadow: 0 7px 0 var(--rose-dark); }
 .btn--rose:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--rose-dark); }
 
 .btn--ghost { background: var(--white); color: var(--mint-700); border-color: var(--mint-200); box-shadow: 0 5px 0 var(--mint-200); }
@@ -365,6 +494,54 @@ cite { font-style: italic; }
 .sticker--paw { bottom: 6%; left: -2%; rotate: 8deg; color: var(--rose); }
 .sticker--sparkle { bottom: 0; right: 6%; rotate: -6deg; color: var(--mint-600); border-color: var(--mint-200); box-shadow: 0 4px 0 var(--mint-200); }
 
+/* ---------- The cat ---------- */
+/* Tap her portrait five times and a cat peeks over the top of the frame, paws on the rim, to say hi (the script adds
+   it, behind the frame, and the paws in front) */
+.peek-cat {
+    position: absolute;
+    left: 33%;
+    top: -13%;
+    width: 34%;
+    transform: translateY(92%);
+    transition: transform 0.7s cubic-bezier(0.34, 1.4, 0.64, 1);
+    pointer-events: none;
+}
+
+.peek-paws {
+    position: absolute;
+    left: 33%;
+    top: 4.6%;
+    width: 34%;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.4s var(--ease);
+    pointer-events: none;
+}
+
+.portrait.cat-out .peek-cat { transform: none; }
+.portrait.cat-out .peek-paws { opacity: 1; transform: none; transition-delay: 0.35s; }
+.peek-cat svg,
+.peek-paws svg { display: block; width: 100%; height: auto; overflow: visible; }
+.cat-line { fill: var(--white); stroke: var(--ink); stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
+.cat-pink { fill: var(--pink-300); }
+.cat-blush { fill: var(--pink-200); }
+.cat-ink { fill: var(--ink); }
+.cat-stroke { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.cat-eyes { transform-box: fill-box; transform-origin: center; }
+.motion .portrait.cat-out .cat-eyes { animation: blink 3.2s 1s infinite; }
+.motion .portrait.cat-out .cat-ear-r { transform-box: fill-box; transform-origin: 50% 100%; animation: twitch 2.4s 1.4s infinite; }
+
+@keyframes blink {
+    0%, 44%, 52%, 100% { transform: none; }
+    48% { transform: scaleY(0.12); }
+}
+
+@keyframes twitch {
+    0%, 70%, 100% { transform: none; }
+    75% { transform: rotate(-12deg); }
+    82% { transform: rotate(6deg); }
+}
+
 /* ================= Wavy dividers ================= */
 .wave {
     display: block;
@@ -374,6 +551,39 @@ cite { font-style: italic; }
 
 .wave svg { display: block; width: 100%; height: 100%; }
 .wave path { fill: var(--to); }
+
+/* ================= Sections rising over one another ================= */
+/* With motion on, the script groups each section with the wave above it into a layer, each above the last, and marks
+   the page .stacking. Each section then holds while the next layer rises over it on its wave: a spacer after it gives
+   it room to hold in (--room: not padding, since a held section can't move into its layer's padding), and the next
+   layer tucks up by as much (--tuck), so nothing on the page moves. The room is a screen, or less when the section
+   rising over it is shorter than that, so the last one never reaches past the footer. --stick is where it holds: the
+   top, or for a section taller than the screen, its bottom edge at the bottom of the screen, so all of it has been
+   read before it's covered. */
+.stacking .layer { position: relative; }
+.stacking .layer:not(:last-child)::after { content: ""; display: block; height: var(--room, 0px); }
+.stacking .layer + .layer { margin-top: calc(var(--tuck, 0px) * -1); }
+.stacking .layer > section { position: sticky; top: var(--stick, 0px); transform-origin: 50% var(--origin, 50%); }
+.stacking .layer > section:not(.section--mint):not(.section--pink) { background-color: var(--cream); }
+.stacking .footer { position: relative; z-index: 20; }
+.measuring .layer > section { position: relative !important; top: auto !important; transform: none !important; }
+
+/* The wave's own color fills only the part of it that isn't yet over the section it's rising onto (--open is how much
+   is), so that section shows through above the curve while the wave rolls in */
+.stacking .wave { background: linear-gradient(var(--from), var(--from)) no-repeat 0 100% / 100% calc(100% - var(--open, 0px)); }
+
+/* The one underneath settles back and dims as it's covered (--p, 0 to 1) */
+.stacking .layer > section.held { transform: scale(calc(1 - var(--p, 0) * 0.05)); }
+
+.stacking .layer > section.held::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    background: var(--shade);
+    opacity: calc(var(--p, 0) * var(--shade-max));
+    pointer-events: none;
+}
 
 /* ================= Sections ================= */
 .section { padding: clamp(3.25rem, 7vw, 5.5rem) 0; }
@@ -661,7 +871,8 @@ cite { font-style: italic; }
 
 .chip-note { color: var(--rose); font-weight: 700; }
 
-/* Clinical skills get a full row; the three shorter lists share the row below */
+/* Clinical skills take two columns, with languages (the shortest list) beside them so the row stays even; the other
+   three lists share the row below. On smaller screens they go back to the résumé's order. */
 .skills {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -669,7 +880,8 @@ cite { font-style: italic; }
     margin-top: 1.5rem;
 }
 
-.skill-card--wide { grid-column: 1 / -1; }
+.skill-card--wide { grid-column: span 2; }
+.skill-card--beside { grid-column: 3; grid-row: 1; }
 
 .skill-card {
     padding: 1.4rem 1.5rem 1.5rem;
@@ -751,6 +963,16 @@ cite { font-style: italic; }
 
 .contact-card .section-intro { margin-inline: auto; }
 
+/* The time where she is (the script fills it in) */
+.local-time {
+    max-width: 30rem;
+    margin: 0.6rem auto 0;
+    color: var(--ink-2);
+    font-size: 0.98rem;
+    font-variant-numeric: tabular-nums;
+    text-wrap: balance;
+}
+
 .contact-icon {
     display: inline-grid;
     place-items: center;
@@ -813,6 +1035,43 @@ cite { font-style: italic; }
 .copy-btn.copied .i-copy { display: none; }
 .copy-btn.copied .i-check { display: block; }
 
+/* A hand-drawn squiggle, like the one under her name, wiggles under her email and Back to top on hover */
+.email-link,
+.to-top { position: relative; }
+
+.email-link::after,
+.to-top::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.45em;
+    height: 0.5em;
+    background: var(--pink-400);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5Q5 0 10 5T20 5' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x 0 50% / 0.8em 100%;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5Q5 0 10 5T20 5' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x 0 50% / 0.8em 100%;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.to-top::after { bottom: -0.5em; height: 0.45em; background: var(--mint-300); }
+.email-link:is(:hover, :focus-visible) { text-decoration-color: transparent; }
+.email-link:is(:hover, :focus-visible)::after,
+.to-top:is(:hover, :focus-visible)::after { opacity: 1; }
+.motion .email-link:is(:hover, :focus-visible)::after,
+.motion .to-top:is(:hover, :focus-visible)::after { animation: wiggleLine 0.7s linear infinite; }
+
+@keyframes wiggleLine {
+    to { -webkit-mask-position: 0.8em 50%; mask-position: 0.8em 50%; }
+}
+
+/* Copying her email: the check draws itself in, and a little burst of hearts floats up (the script adds them) */
+.motion .copy-btn.copied .i-check { stroke-dasharray: 20; stroke-dashoffset: 20; animation: drawCheck 0.4s 0.05s var(--ease) forwards; }
+
+@keyframes drawCheck { to { stroke-dashoffset: 0; } }
+
+.burst-heart { position: fixed; z-index: 150; pointer-events: none; line-height: 0; }
+
 /* ================= Footer ================= */
 .footer {
     padding: 1.5rem 0 2rem;
@@ -832,7 +1091,6 @@ cite { font-style: italic; }
 }
 
 .footer-inner p { display: inline-flex; align-items: center; gap: 0.35rem; }
-.footer .icon.filled { color: var(--pink-400); }
 
 .to-top {
     display: inline-flex;
@@ -843,7 +1101,39 @@ cite { font-style: italic; }
     text-decoration: none;
 }
 
-.to-top:hover { text-decoration: underline; }
+
+/* ================= Back to top (phones) ================= */
+/* A round button in the corner once you've scrolled a screen down (the script marks it .show) */
+.float-top { display: none; }
+
+@media (max-width: 47.5em) {
+    .float-top {
+        position: fixed;
+        right: 16px;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        z-index: 90;
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border: 2px solid var(--pink-200);
+        border-radius: 50%;
+        background: var(--white);
+        box-shadow: 0 4px 0 var(--pink-200);
+        color: var(--rose);
+        font-size: 1.2rem;
+        text-decoration: none;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(12px);
+        transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s;
+    }
+
+    .float-top.show { opacity: 1; visibility: visible; transform: none; }
+
+    /* room under the footer so the button never sits on its text */
+    .footer { padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)); }
+}
 
 /* ================= Motion ================= */
 /* Only applied when the visitor's device allows motion (the class is set in the page head). */
@@ -971,24 +1261,27 @@ cite { font-style: italic; }
 }
 
 /* ================= Responsive ================= */
-@media (max-width: 900px) {
+/* The breakpoints are in em, so they follow the browser's text size: with bigger text everything is wider, and each
+   layout steps down sooner (at the usual 16px, 60em is 960px) */
+@media (max-width: 56.25em) {
     .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .skills .skill-card:last-child { grid-column: 1 / -1; }
+    .skill-card--beside { grid-column: auto; grid-row: auto; }
     .interests { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-@media (max-width: 760px) {
-    /* The link list leaves the header on phones, so move the button past its empty slot to the right edge */
+/* Below 60em the links and the three buttons no longer fit in one row, so the links fold into the menu button: a
+   small dropdown under it here, the full width on phones */
+@media (max-width: 60em) {
+    /* The link list leaves the header, so move the button past its empty slot to the right edge */
     .menu-btn { display: grid; order: 2; }
-
-    .floaties span:nth-child(even) { display: none; }
+    .toggles { order: 1; margin: 0 0.4rem 0 auto; gap: 0.3rem; }
 
     .nav-links {
         position: absolute;
         top: calc(var(--nav-h) - 4px);
         right: 16px;
-        left: 16px;
+        width: 300px;
         display: none;
         flex-direction: column;
         align-items: stretch;
@@ -1003,6 +1296,13 @@ cite { font-style: italic; }
     .nav.open .nav-links { display: flex; }
     .nav-links a { padding: 0.7rem 1rem; font-size: 1.05rem; }
     .nav-links .say-hi { margin: 0.3rem 0 0; text-align: center; }
+}
+
+@media (max-width: 47.5em) {
+    .toggle { width: 38px; height: 38px; border-radius: 12px; }
+    .nav-links { left: 16px; width: auto; }
+
+    .floaties span:nth-child(even) { display: none; }
 
     .hero-grid { grid-template-columns: 1fr; }
     .portrait { order: -1; width: min(70vw, 260px); }
@@ -1010,6 +1310,7 @@ cite { font-style: italic; }
 
     .cards-2,
     .skills { grid-template-columns: 1fr; }
+    .skill-card--wide { grid-column: auto; }
 
     .timeline { --pad: 1.9rem; --rail: 11px; }
     .timeline .job::before { width: 21px; height: 21px; }
@@ -1020,15 +1321,29 @@ cite { font-style: italic; }
     .edu--small { grid-template-columns: auto minmax(0, 1fr); padding: 1rem 1.15rem; }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 26.25em) {
     .stats { gap: 0.8rem; }
     .stat { padding: 1.15rem 1rem; }
     .stat-label { font-size: 0.95rem; }
 }
 
+/* The narrowest phones: the nav tightens up so her name, the three buttons, and the menu share the row (the link
+   list, tucked away as the menu, still takes a gap in the row, so the gaps shrink) */
+@media (max-width: 25em) {
+    .nav-inner { gap: 0.4rem; }
+    .brand { gap: 0.35rem; font-size: 1.15rem; }
+    .toggles { margin-right: 0; gap: 0.25rem; }
+    .toggle { width: 34px; height: 34px; border-radius: 11px; font-size: 0.95rem; }
+    .menu-btn { width: 40px; height: 40px; }
+}
+
 /* ================= Print ================= */
 @media print {
-    .nav, .wave, .sticker, .portrait-blob, .actions, .copy-btn, .to-top, .skip-link { display: none !important; }
+    .nav, .wave, .sticker, .portrait-blob, .actions, .copy-btn, .to-top, .float-top, .local-time, .skip-link,
+    .peek-cat, .peek-paws, .burst-heart { display: none !important; }
+    .stacking .layer { margin: 0 !important; }
+    .stacking .layer::after { display: none !important; }
+    .stacking .layer > section { position: static !important; transform: none !important; }
     body, .section, .section--mint, .section--pink, .footer { background: #fff !important; }
     .motion .reveal { opacity: 1 !important; transform: none !important; }
     .stat, .job, .edu, .skill-card, .interest, .contact-card { box-shadow: none !important; break-inside: avoid; }

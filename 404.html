@@ -6,15 +6,45 @@
     <title>Page not found | Crystal Lin</title>
     <meta name="robots" content="noindex">
     <meta name="theme-color" content="#FFF9F6">
-    <meta name="color-scheme" content="light">
+    <meta name="color-scheme" content="light dark">
+    <!-- Night mode and more contrast, as chosen on the main page (or the device's setting) -->
+    <script>
+        (() => {
+            const root = document.documentElement;
+            const saved = {};
+            try { ['theme', 'contrast'].forEach((k) => { saved[k] = localStorage.getItem(k); }); } catch (e) {}
+            const dark = saved.theme ? saved.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+            root.dataset.theme = dark ? 'dark' : 'light';
+            if (saved.contrast ? saved.contrast === 'more' : matchMedia('(prefers-contrast: more)').matches) root.dataset.contrast = 'more';
+            document.querySelector('meta[name="theme-color"]').content = dark ? '#221921' : '#FFF9F6';
+        })();
+    </script>
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700&display=swap"></noscript>
+    <link rel="preload" href="/assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/fredoka-latin.woff2" as="font" type="font/woff2" crossorigin>
     <style>
+        /* The same two fonts as the main page, from this site (this page can be served from any address, so the
+           paths start at the root) */
+        @font-face {
+            font-family: "Fredoka";
+            font-style: normal;
+            font-weight: 300 700;
+            font-display: swap;
+            src: url("/assets/fonts/fredoka-latin.woff2") format("woff2");
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        @font-face {
+            font-family: "Nunito";
+            font-style: normal;
+            font-weight: 200 1000;
+            font-display: swap;
+            src: url("/assets/fonts/nunito-latin.woff2") format("woff2");
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
         :root {
             --cream: #FFF9F6;
             --pink-100: #FCE4EC;
@@ -26,7 +56,31 @@
             --mint-700: #1B5E47;
             --ink: #4A3640;
             --ink-2: #6F5962;
+            --white: #FFFFFF;
+            --on-rose: #FFFFFF;
+            --rose-hover: #A2355A;
+            color-scheme: light;
         }
+
+        /* Night mode, the same colors as the main page */
+        :root[data-theme="dark"] {
+            --cream: #221921;
+            --pink-100: #45283A;
+            --pink-200: #5A3549;
+            --pink-300: #B4708F;
+            --rose: #F48FB1;
+            --rose-dark: #B85C7E;
+            --mint-200: #2F5546;
+            --mint-700: #8FE0BD;
+            --ink: #F7E9EF;
+            --ink-2: #D6C1CB;
+            --white: #2E222B;
+            --on-rose: #2A1520;
+            --rose-hover: #F8A9C4;
+            color-scheme: dark;
+        }
+
+        :root[data-contrast="more"] { --ink-2: var(--ink); }
 
         * { box-sizing: border-box; }
 
@@ -50,7 +104,7 @@
             padding: 2.25rem 1.75rem 2.5rem;
             border: 2px solid var(--mint-200);
             border-radius: 36px;
-            background: #fff;
+            background: var(--white);
             box-shadow: 0 8px 0 var(--mint-200);
             text-align: center;
         }
@@ -91,12 +145,12 @@
             border-radius: 999px;
             background: var(--rose);
             box-shadow: 0 5px 0 var(--rose-dark);
-            color: #fff;
+            color: var(--on-rose);
             font-weight: 700;
             text-decoration: none;
         }
 
-        a.home:hover { background: #A2355A; }
+        a.home:hover { background: var(--rose-hover); }
         a.home:focus-visible { outline: 3px solid var(--mint-700); outline-offset: 4px; }
     </style>
 </head>

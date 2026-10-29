@@ -11,13 +11,13 @@
     <meta property="og:url" content="https://cl6450-dotcom.github.io/">
     <meta property="og:title" content="Crystal Lin — Aspiring Physician Assistant">
     <meta property="og:description" content="Medical assistant in New York on her way to PA school.">
-    <meta property="og:image" content="https://cl6450-dotcom.github.io/assets/img/og-image.png">
+    <meta property="og:image" content="https://cl6450-dotcom.github.io/assets/img/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Crystal Lin, aspiring physician assistant">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#FFF9F6">
-    <meta name="color-scheme" content="light">
+    <meta name="color-scheme" content="light dark">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -39,15 +39,21 @@
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap"></noscript>
-    <!-- Gentle animations only when the visitor hasn't asked their device to reduce motion. -->
+    <!-- Her two fonts come from this site, fetched straight away so the text shows in them from the start -->
+    <link rel="preload" href="assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/fredoka-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Night mode, more contrast, and gentle animations: the visitor's own choice if they've made one here, otherwise
+         their device's setting. Set before anything is drawn, so the page never flashes the wrong colors. -->
     <script>
-        if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-            document.documentElement.classList.add('motion');
-        }
+        (() => {
+            const root = document.documentElement;
+            const saved = {};
+            try { ['theme', 'contrast', 'motion'].forEach((k) => { saved[k] = localStorage.getItem(k); }); } catch (e) {}
+            root.dataset.theme = (saved.theme ? saved.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+            if (saved.contrast ? saved.contrast === 'more' : matchMedia('(prefers-contrast: more)').matches) root.dataset.contrast = 'more';
+            const moving = saved.motion ? saved.motion === 'on' : !matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (moving && 'IntersectionObserver' in window) root.classList.add('motion');
+        })();
     </script>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="assets/js/main.js" defer></script>
@@ -84,6 +90,11 @@
         <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3.5H7.5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8z"/><path d="M14 3.5V8h4.5M9 12.5h6M9 16h6"/></symbol>
         <symbol id="i-school" viewBox="0 0 24 24"><path d="M3 20.5h18M5 20.5v-9l7-4 7 4v9M9.5 20.5v-4.5h5v4.5M12 7.5V3.5h3.5"/></symbol>
         <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></symbol>
+        <symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></symbol>
+        <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 6.5v11M15 6.5v11"/></symbol>
+        <symbol id="i-play" viewBox="0 0 24 24"><path d="M8.5 6v12l9.5-6z"/></symbol>
     </svg>
 
     <a class="skip-link" href="#main">Skip to content</a>
@@ -108,6 +119,12 @@
                     <li><a class="say-hi" href="#contact">Say hi</a></li>
                 </ul>
             </nav>
+            <!-- Night mode, more contrast, and pausing the animations (the script keeps their labels up to date) -->
+            <div class="toggles">
+                <button class="toggle" type="button" data-toggle="theme" aria-label="Switch to night mode" title="Switch to night mode"><svg class="icon i-moon" aria-hidden="true"><use href="#i-moon"/></svg><svg class="icon i-sun" aria-hidden="true"><use href="#i-sun"/></svg></button>
+                <button class="toggle" type="button" data-toggle="contrast" aria-pressed="false" aria-label="More contrast" title="More contrast"><svg class="icon" aria-hidden="true"><use href="#i-contrast"/></svg></button>
+                <button class="toggle" type="button" data-toggle="motion" aria-pressed="false" aria-label="Pause animations" title="Pause animations"><svg class="icon i-pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="icon i-play" aria-hidden="true"><use href="#i-play"/></svg></button>
+            </div>
         </div>
     </header>
 
@@ -144,8 +161,8 @@
                     <span class="portrait-blob" aria-hidden="true"></span>
                     <span class="portrait-frame">
                         <picture>
-                            <source srcset="assets/img/profile.webp" type="image/webp">
-                            <img src="assets/img/profile.jpg" alt="Portrait of Crystal Lin" width="800" height="800" fetchpriority="high">
+                            <source srcset="assets/img/profile-400.webp 400w, assets/img/profile-600.webp 600w, assets/img/profile.webp 800w" sizes="(max-width: 760px) 224px, 320px" type="image/webp">
+                            <img src="assets/img/profile.jpg" srcset="assets/img/profile-400.jpg 400w, assets/img/profile-600.jpg 600w, assets/img/profile.jpg 800w" sizes="(max-width: 760px) 224px, 320px" alt="Portrait of Crystal Lin" width="800" height="800" fetchpriority="high">
                         </picture>
                     </span>
                     <span class="sticker sticker--heart" aria-hidden="true"><svg class="icon filled"><use href="#i-heart"/></svg></span>
@@ -168,8 +185,8 @@
                 <ul class="stats">
                     <li class="stat reveal">
                         <span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#i-clipboard"/></svg></span>
-                        <p class="stat-num"><span data-count="360">360</span>+</p>
-                        <p class="stat-label">hours of patient intakes</p>
+                        <p class="stat-num"><span data-count="540">540</span>+</p>
+                        <p class="stat-label">hours of patient rooming and intake</p>
                         <p class="stat-where">Newtown Gastroenterology</p>
                     </li>
                     <li class="stat reveal" style="--d:.08s">
@@ -215,9 +232,10 @@
                             <p class="job-meta"><span class="pill pill--pink">Jan 2026 – Present</span><span class="pill">New York, NY</span></p>
                         </div>
                         <ul class="points">
-                            <li>I've done 360+ hours of patient intakes: taking vital signs, documenting chief complaints, and running tests like urea breath tests and SIBO testing.</li>
-                            <li>I've removed 500+ IV catheters and helped patients through post-anesthesia recovery, discharge checks, and post-op instructions so procedure days run smoothly.</li>
+                            <li>I've done 540+ hours of patient rooming and intake for about 45 patients a day: taking vital signs, documenting chief complaints, reconciling medications, and running point-of-care tests like urea breath tests and SIBO testing.</li>
+                            <li>I've removed 500+ IV catheters and helped patients through post-anesthesia recovery, discharge checks, and post-op education so procedure days run smoothly.</li>
                             <li>I keep patient records accurate in Enki and iClinic, including ICD-10 coding and same-day post-op reports to primary care doctors.</li>
+                            <li>I run patient check-in and checkout: verifying insurance, scheduling follow-ups and procedures, and sending patient details, recent labs, requisitions, and referrals to outside radiology centers for prior authorization and imaging.</li>
                         </ul>
                     </li>
 
@@ -246,7 +264,7 @@
                         </div>
                         <ul class="points">
                             <li>I observed 200+ oncology consultations and learned how chemotherapy, radiation, and targeted therapy plans come together.</li>
-                            <li>I served as a Cantonese language liaison, helping non-English-speaking patients understand their diagnoses and treatment plans.</li>
+                            <li>I served as a Cantonese language liaison in oncology consults, helping patients understand their diagnoses and treatment plans.</li>
                         </ul>
                     </li>
 
@@ -259,9 +277,9 @@
                             <p class="job-meta"><span class="pill pill--pink">Sep 2024 – Dec 2024</span><span class="pill">New York, NY</span></p>
                         </div>
                         <ul class="points">
-                            <li>I performed EKGs and spirometry in a busy primary care practice.</li>
-                            <li>I drew blood and packed blood and urine samples for the lab, following proper handling protocols.</li>
-                            <li>I gave cognitive and mental health screenings, including Mini-Cog, SLUMS, PHQ-9, and GAD-7, and charted the results in eCW for physician review.</li>
+                            <li>I performed spirometry and 20 EKGs in a busy primary care practice to support heart and lung assessments.</li>
+                            <li>I drew blood and packaged blood and urine specimens for the lab, following proper handling protocols.</li>
+                            <li>I gave cognitive and mental health screenings, including Mini-Cog, SLUMS, PHQ-9, and GAD-7, and charted the results in eCW.</li>
                         </ul>
                     </li>
                 </ol>
@@ -328,10 +346,8 @@
                         <ul class="chips">
                             <li>Organic Chemistry I and II with Lab</li>
                             <li>Biochemistry I</li>
-                            <li>Intro to Neural Science</li>
-                            <li>Behavioral and Integrative Neuroscience</li>
-                            <li>Cellular and Molecular Neuroscience</li>
-                            <li>Intro to Psychology with Lab</li>
+                            <li>Anatomy and Physiology</li>
+                            <li>Microbiology</li>
                         </ul>
                     </div>
                 </article>
@@ -348,22 +364,28 @@
                     <article class="skill-card skill-card--wide reveal">
                         <h3><span class="mini-icon" aria-hidden="true"><svg class="icon"><use href="#i-stethoscope"/></svg></span>Clinical</h3>
                         <ul class="chips">
-                            <li>Vital signs</li><li>IV catheter removal</li><li>EKG</li><li>Spirometry</li><li>Venipuncture</li><li>UBT and SIBO testing</li><li>Cognitive and mental health screenings</li><li>ICD-10 coding</li><li>HIPAA</li>
+                            <li>Vital signs</li><li>Rooming</li><li>Medication reconciliation</li><li>Phlebotomy</li><li>Specimen collection</li><li>Point-of-care testing</li><li>EKG / ECG</li>
+                        </ul>
+                    </article>
+                    <article class="skill-card reveal" style="--d:.08s">
+                        <h3><span class="mini-icon" aria-hidden="true"><svg class="icon"><use href="#i-clipboard"/></svg></span>Front office</h3>
+                        <ul class="chips">
+                            <li>Epic</li><li>eClinicalWorks</li><li>iClinic / MDLand</li><li>Enki</li><li>Insurance verification</li><li>Scheduling</li><li>Referral coordination</li>
                         </ul>
                     </article>
                     <article class="skill-card reveal">
-                        <h3><span class="mini-icon" aria-hidden="true"><svg class="icon"><use href="#i-clipboard"/></svg></span>Health records</h3>
+                        <h3><span class="mini-icon" aria-hidden="true"><svg class="icon"><use href="#i-book"/></svg></span>Professional</h3>
                         <ul class="chips">
-                            <li>Epic</li><li>eCW</li><li>Enki</li><li>iClinic</li><li>MDLand</li>
+                            <li>HIPAA</li><li>ICD-10 coding</li><li>Infection control</li><li>Medical terminology</li><li>Patient education</li><li>Customer service</li><li>Teamwork</li>
                         </ul>
                     </article>
                     <article class="skill-card reveal" style="--d:.08s">
                         <h3><span class="mini-icon" aria-hidden="true"><svg class="icon"><use href="#i-flask"/></svg></span>Research</h3>
                         <ul class="chips">
-                            <li>EEG setup</li><li>SPSS</li><li>Survey design</li><li>Patient interviews</li><li>IRB-compliant consent</li>
+                            <li>Data collection</li><li>Participant interviews</li><li>Survey design</li><li>IRB-compliant informed consent</li><li>EEG setup</li><li>SPSS</li>
                         </ul>
                     </article>
-                    <article class="skill-card reveal" style="--d:.16s">
+                    <article class="skill-card skill-card--beside reveal" style="--d:.16s">
                         <h3><span class="mini-icon" aria-hidden="true"><svg class="icon"><use href="#i-chat"/></svg></span>Languages</h3>
                         <ul class="chips">
                             <li>English <span class="chip-note">native</span></li><li>Cantonese <span class="chip-note">native</span></li><li>Mandarin <span class="chip-note">conversational</span></li>
@@ -402,6 +424,7 @@
                     <span class="contact-icon" aria-hidden="true"><svg class="icon"><use href="#i-paw"/></svg></span>
                     <h2 class="section-title" id="contact-title">Let's chat</h2>
                     <p class="section-intro">Whether it's about PA school, patient care, or a cute cat photo, I'd love to hear from you.</p>
+                    <p class="local-time" hidden></p>
                     <p class="email-row">
                         <a class="email-link" href="mailto:cl6450@nyu.edu">cl6450@nyu.edu</a>
                         <button class="copy-btn" type="button" data-copy="cl6450@nyu.edu" aria-label="Copy email address" title="Copy email address">
@@ -420,9 +443,10 @@
         </section>
     </main>
 
+    <a class="float-top" href="#top" aria-label="Back to top"><svg class="icon" aria-hidden="true"><use href="#i-up"/></svg></a>
+
     <footer class="footer">
         <div class="container footer-inner">
-            <p>Made with <svg class="icon filled" aria-hidden="true"><use href="#i-heart"/></svg><span class="visually-hidden">love</span> in Queens, NY</p>
             <p>© <span id="year">2026</span> Crystal Lin</p>
             <a class="to-top" href="#top"><svg class="icon" aria-hidden="true"><use href="#i-up"/></svg>Back to top</a>
         </div>
