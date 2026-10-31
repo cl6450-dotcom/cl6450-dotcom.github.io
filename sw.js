@@ -3,7 +3,7 @@
 // browser's own cache, which GitHub Pages lets keep them for 10 minutes), so a new version shows up straight away and
 // never a new page with old styles; the saved copy is only used when the network is slow or gone. Fonts and images
 // come straight from the saved copy and refresh in the background. Changing VERSION clears everything saved before.
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = `crystal-${VERSION}`;
 const CORE = [
     './',
