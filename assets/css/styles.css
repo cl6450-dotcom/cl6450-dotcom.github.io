@@ -326,6 +326,12 @@ cite { font-style: italic; }
     padding: clamp(3rem, 8vw, 6rem) 0 clamp(3rem, 7vw, 5rem);
 }
 
+/* On phones the buttons are the last thing in the hero, and the next section rises over it as soon as its bottom edge
+   is on screen, so they need room below them to stay in view for a moment */
+@media (max-width: 760px) {
+    .hero { padding-bottom: 5.5rem; }
+}
+
 /* Polka dots that fade out toward the edges */
 .hero::before {
     content: "";
@@ -356,7 +362,6 @@ cite { font-style: italic; }
     color: var(--rose);
 }
 
-.hello .icon { color: var(--pink-400); }
 
 /* The name and its squiggle share one width, so the squiggle always runs the full length of the name.
    Both are sized in em, so the waves keep the same shape at every screen size. */
@@ -1151,20 +1156,12 @@ cite { font-style: italic; }
 .motion .sticker--paw { animation-delay: -1.6s; }
 .motion .sticker--sparkle { animation-delay: -2.4s; }
 .motion .portrait-blob { animation: blob 12s ease-in-out infinite alternate; }
-.motion .wave-heart { animation: beat 1.6s ease-in-out infinite; }
 
 @keyframes bob { to { translate: 0 -10px; } }
 
 @keyframes blob {
     50% { border-radius: 58% 42% 46% 54% / 42% 56% 44% 58%; }
     to { border-radius: 42% 58% 52% 48% / 56% 46% 54% 44%; }
-}
-
-@keyframes beat {
-    0%, 60%, 100% { transform: scale(1); }
-    15% { transform: scale(1.22); }
-    30% { transform: scale(0.95); }
-    45% { transform: scale(1.12); }
 }
 
 /* ---------- High school card ---------- */

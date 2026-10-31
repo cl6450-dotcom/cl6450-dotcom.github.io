@@ -4,7 +4,7 @@
 
 I'm a medical assistant in New York, working toward becoming a physician assistant.
 
-**[My site](https://cl6450-dotcom.github.io/)** &nbsp;|&nbsp; [Résumé](https://cl6450-dotcom.github.io/Crystal-Lin-Resume.pdf) &nbsp;|&nbsp; [Email](mailto:cl6450@nyu.edu)
+**[My site](https://cl6450-dotcom.github.io/)** &nbsp;|&nbsp; [Résumé](https://cl6450-dotcom.github.io/Crystal-Lin-Resume.pdf) &nbsp;|&nbsp; [LinkedIn](https://www.linkedin.com/in/clin2004) &nbsp;|&nbsp; [Email](mailto:cl6450@nyu.edu)
 
 </div>
 

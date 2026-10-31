@@ -1,8 +1,9 @@
 // Keeps a copy of the site so repeat visits open right away and it still opens offline.
-// The page, styles, and script come from the network first, so a new version shows up straight away; the saved copy
-// is only used when the network is slow or gone. Fonts and images come straight from the saved copy and refresh in
-// the background. Changing VERSION clears everything saved before.
-const VERSION = 'v1';
+// The page, styles, and script come from the network first, checked with the server every time (not taken from the
+// browser's own cache, which GitHub Pages lets keep them for 10 minutes), so a new version shows up straight away and
+// never a new page with old styles; the saved copy is only used when the network is slow or gone. Fonts and images
+// come straight from the saved copy and refresh in the background. Changing VERSION clears everything saved before.
+const VERSION = 'v2';
 const CACHE = `crystal-${VERSION}`;
 const CORE = [
     './',
@@ -35,7 +36,7 @@ const save = (cache, request, response) => {
 
 const networkFirst = async (request) => {
     const cache = await caches.open(CACHE);
-    const network = fetch(request).then((res) => save(cache, request, res));
+    const network = fetch(request, { cache: 'no-cache' }).then((res) => save(cache, request, res));
     network.catch(() => {});
     try {
         return await Promise.race([network, new Promise((resolve, reject) => setTimeout(() => reject(new Error('slow')), SLOW))]);
